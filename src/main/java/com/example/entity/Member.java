@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @Table(name = "USER")
-public class User {
+public class Member {
     
     @Id
     @Column(name = "USERID")
@@ -27,5 +27,8 @@ public class User {
 
     @Column(name = "USERNAME")
     private String username = null;
+
+    @Column(name = "USERROLE", updatable = false)
+    private String userrole = null;
 
 }

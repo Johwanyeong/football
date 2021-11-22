@@ -1,12 +1,12 @@
 package com.example.service;
 
-import com.example.entity.User;
+import com.example.entity.Member;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public interface UserService {
+public interface MemberService {
     
     //회원가입
-    public void insertUser(User user);
+    public void insertUser(Member member);
 }

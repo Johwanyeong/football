@@ -2,24 +2,24 @@ package com.example.service;
 
 import javax.persistence.EntityManagerFactory;
 
-import com.example.entity.User;
-import com.example.repository.UserRepository;
+import com.example.entity.Member;
+import com.example.repository.MemberRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class MemberServiceImpl implements MemberService{
 
     @Autowired
     EntityManagerFactory emf;
 
     @Autowired
-    UserRepository uRepository;
+    MemberRepository uRepository;
 
     //회원가입
     @Override
-    public void insertUser(User user) {
+    public void insertUser(Member user) {
         uRepository.save(user);
     }
     
