@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -71,4 +72,23 @@ public class MemberController {
 
     //회원 정보 수정
     //127.0.0.1:8080/REST/member/update
+    @RequestMapping(value = "/member/update", method = {RequestMethod.PUT},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> updatePUT(@RequestBody Member member,
+        @RequestHeader("token") String token) {
+        Map<String,Object> map = new HashMap<String, Object>();
+        try {
+            String userid = jwtUtil.extractUsername(token);
+            Member member2 = mService.selectUserOne(userid);
+            member2.setUserid(member.getUserid());
+            member2.setUsername(member.getUsername());
+            mService.updateUser(member2);
+            map.put("result", 1L);
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("result", e.hashCode());
+        }
+        return map;
+    }
 }

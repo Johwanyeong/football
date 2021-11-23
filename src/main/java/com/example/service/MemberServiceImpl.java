@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.Optional;
+
 import javax.persistence.EntityManagerFactory;
 
 import com.example.entity.Member;
@@ -15,12 +17,25 @@ public class MemberServiceImpl implements MemberService{
     EntityManagerFactory emf;
 
     @Autowired
-    MemberRepository uRepository;
+    MemberRepository mRepository;
 
     //회원가입
     @Override
     public void insertUser(Member user) {
-        uRepository.save(user);
+        mRepository.save(user);
+    }
+
+    //회원 정보 찾기
+    @Override
+    public Member selectUserOne(String id) {
+        Optional<Member> member = mRepository.findById(id);
+        return member.orElse(null);
+    }
+
+    //회원 정보 수정
+    @Override
+    public void updateUser(Member member) {
+        mRepository.save(member);
     }
     
 }
