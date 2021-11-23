@@ -51,7 +51,7 @@ public class MemberController {
 
     //로그인
     //127.0.0.1:8080/REST/member/login
-    @RequestMapping(value = "member/login", method = {RequestMethod.POST},
+    @RequestMapping(value = "/member/login", method = {RequestMethod.POST},
     consumes = MediaType.ALL_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Object> loginPOST(@RequestBody Member member) {
@@ -68,4 +68,7 @@ public class MemberController {
         }
         return map;
     }
+
+    //회원 정보 수정
+    //127.0.0.1:8080/REST/member/update
 }
