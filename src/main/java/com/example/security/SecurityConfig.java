@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         //권한 설정
         http.authorizeRequests()
             //관리자 로그인
-            .antMatchers("/admin","/admin/*").hasAnyRole("ADMIN")
+            .antMatchers("/admin","/admin/*").hasAuthority("ADMIN")
             //회원 로그인
             .antMatchers("/member","/member/*").permitAll().and();
         //필터 추가하기

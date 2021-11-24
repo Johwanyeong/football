@@ -1,6 +1,8 @@
 package com.example.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -16,4 +18,8 @@ import lombok.ToString;
 @Table(name = "PLAYER")
 public class Player {
     
+    @Id
+    @Column(name = "PLAYERNO")
+    private String playerno = null;
+
 }
