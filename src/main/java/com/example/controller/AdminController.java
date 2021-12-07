@@ -84,7 +84,7 @@ public class AdminController {
     @RequestMapping(value = "/admin/playerinsert", method = {RequestMethod.POST},
     consumes = MediaType.ALL_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, Object> agentinsertPOST(
+    public Map<String, Object> playerinsertPOST(
         @ModelAttribute Player player,
         @RequestParam(name = "file") MultipartFile file,
         @RequestHeader("token") String token){
@@ -95,6 +95,36 @@ public class AdminController {
             player.setImagetype(file.getContentType());
             pService.insertPlayer(player);
             map.put("status", 200);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+
+    //선수 정보 수정
+    //127.0.0.1:8080/REST/admin/playerupdate
+    @RequestMapping(value = "/admin/playerupdate", method = {RequestMethod.PUT},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> playerupdatePUT(
+        @ModelAttribute Player player,
+        @RequestParam(name = "file") MultipartFile file,
+        @RequestHeader("token") String token){
+        Map<String, Object> map = new HashMap<String, Object>();
+        try{            
+            Player player2 = pService.getPlayerOne(player.getPlayerno());   //선수 정보 가져오기
+            player2.setPlayerage(player.getPlayerage());    //나이
+            player2.setPlayerheight(player.getPlayerheight());  //키
+            player2.setPlayerweight(player.getPlayerweight());  //몸무게
+            player2.setPlayerprice(player.getPlayerprice());    //몸값
+            player2.setImage(file.getBytes());  //이미지
+            player2.setImagename(file.getOriginalFilename());   //이미지
+            player2.setImagetype(file.getContentType());    //이미지
+            pService.updatePlayer(player2);
+            map.put("status", 200);
+            map.put("player", player2);
         }
         catch(Exception e){
             e.printStackTrace();
