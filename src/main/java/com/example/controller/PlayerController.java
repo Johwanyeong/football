@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.example.entity.Player;
@@ -38,5 +39,26 @@ public class PlayerController {
         }
         return map;
     }
+
+    // 선수 전체 조회
+    //127.0.0.1:8080/REST/playerall
+    @RequestMapping(value = "/playerall", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> playerallGET(Player player ) {
+        Map<String, Object> map = new HashMap<>();
+        try{
+            List<Player> playerAll = pService.getPlayerAll();
+            map.put("status", "200");
+            map.put("player",playerAll );
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
     
+    //팀 코드 별 선수 조회
+     
 }

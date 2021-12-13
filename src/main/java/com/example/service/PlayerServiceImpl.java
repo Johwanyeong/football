@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.entity.Player;
@@ -31,5 +32,11 @@ public class PlayerServiceImpl implements PlayerService{
     @Override
     public void updatePlayer(Player player) {
         pRepositoy.save(player);
+    }
+
+    //선수 전체 정보 조회
+    @Override
+    public List<Player> getPlayerAll() {
+        return pRepositoy.findAllByOrderByPlayernoDesc();
     }
 }
