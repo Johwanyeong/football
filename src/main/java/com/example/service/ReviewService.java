@@ -9,4 +9,14 @@ public interface ReviewService {
     
     // 리뷰 등록
     public void insertReview(Review review);
+
+    // 리뷰 정보 가져오기
+    public Review getReview(long no);
+
+    // 리뷰 수정
+    public void updateReview(Review review);
+
+    //리뷰 삭제
+    public void deleteReview(long no);
+
 }
