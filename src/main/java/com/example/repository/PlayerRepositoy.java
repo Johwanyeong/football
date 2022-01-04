@@ -1,10 +1,10 @@
 package com.example.repository;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import com.example.entity.Player;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +15,9 @@ public interface PlayerRepositoy extends JpaRepository<Player, Long>{
     List<Player> findAllByOrderByPlayernoDesc();
 
     //팀 번호 별 선수 조회
-    List<Player> findByTeam_TeamnoStartingWithOrderByPlayernoDesc(String teamno, Pageable pageable);
+    List<Player> findByTeam_TeamnoOrderByPlayernoDesc(Long teamno, Pageable pageable);
 
+    //에이전트 번호 별 선수 조회
+    List<Player> findByAgent_AgentnoOrderByPlayernoDesc(Long agentno, Pageable pageable);
 
 }

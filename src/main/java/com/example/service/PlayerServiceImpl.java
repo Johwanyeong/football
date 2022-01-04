@@ -7,6 +7,7 @@ import com.example.entity.Player;
 import com.example.repository.PlayerRepositoy;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -38,5 +39,17 @@ public class PlayerServiceImpl implements PlayerService{
     @Override
     public List<Player> getPlayerAll() {
         return pRepositoy.findAllByOrderByPlayernoDesc();
+    }
+
+    //팀 번호 별 선수 조회
+    @Override
+    public List<Player> getPlayerByTeamno(Long no, Pageable pageable) {
+        return pRepositoy.findByTeam_TeamnoOrderByPlayernoDesc(no, pageable);
+    }
+
+    //에이전트 번호 별 선수 조회
+    @Override
+    public List<Player> getPlayerByAgentno(Long no, Pageable pageable) {
+        return pRepositoy.findByAgent_AgentnoOrderByPlayernoDesc(no, pageable);
     }
 }

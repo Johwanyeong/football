@@ -8,6 +8,7 @@ import com.example.entity.Player;
 import com.example.service.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,6 +60,50 @@ public class PlayerController {
         return map;
     }
     
-    //팀 코드 별 선수 조회
-     
+    //팀 번호 별 선수 조회
+    // 127.0.0.1:8080/REST/bnoplayer?page=1&bno=
+    @RequestMapping(value = "/bnoplayer", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> BnoplayerGET(Player player,
+    @RequestParam(value = "page", defaultValue = "1")int page,
+    @RequestParam(name = "bno")long bno) {
+        //페이지 네이션 처리
+        PageRequest pageable = PageRequest.of(page-1, 16);
+        Map<String, Object> map = new HashMap<>();
+        try{
+            List<Player> Bnoplayer = pService.getPlayerByTeamno(bno, pageable);
+            map.put("status", "200");
+            map.put("player",Bnoplayer );
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+
+    //에이전트 번호 별 선수 조회
+    // 127.0.0.1:8080/REST/bnoplayer?page=1&bno=
+    @RequestMapping(value = "/anoplayer", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> AnoplayerGET(Player player,
+    @RequestParam(value = "page", defaultValue = "1")int page,
+    @RequestParam(name = "ano")long ano) {
+        //페이지 네이션 처리
+        PageRequest pageable = PageRequest.of(page-1, 16);
+        Map<String, Object> map = new HashMap<>();
+        try{
+            List<Player> Bnoplayer = pService.getPlayerByAgentno(ano, pageable);
+            map.put("status", "200");
+            map.put("player",Bnoplayer );
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+    
 }
