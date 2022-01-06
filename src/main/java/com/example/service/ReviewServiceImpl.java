@@ -50,6 +50,6 @@ public class ReviewServiceImpl implements ReviewService{
     // 선수 번호 별 리뷰 조회
     @Override
     public List<Review> getReviewByPlayerno(Long no, Pageable pageable) {
-        return rRepository.findByPlayer_PlayernoOrderByReviewnoDesc(no, pageable);
+        return rRepository.findByPlayer_Playerno(no, pageable);
     }    
 }

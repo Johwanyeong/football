@@ -15,5 +15,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
     List<Review> findAllByOrderByReviewnoDesc();
 
     //선수 번호 별 리뷰 조회
-    List<Review> findByPlayer_PlayernoOrderByReviewnoDesc(Long playerno, Pageable pageable);
+    List<Review> findByPlayer_Playerno(Long playerno, Pageable pageable);
 }
