@@ -61,7 +61,6 @@ public class ScoutController {
                     sService.insertScout(scout);
                     map.put("status", 200);
                 }
-     
             }
             else{
                 map.put("status", 300);

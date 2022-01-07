@@ -41,5 +41,10 @@ public class ScoutServiceImpl implements ScoutService{
         sRepository.deleteById(no);
     }
 
-    
+    // 스카우터 목록 수정
+    @Override
+    public void updateScout(Scout scout) {
+        sRepository.save(scout);
+    }
+
 }
