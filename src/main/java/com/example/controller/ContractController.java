@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.entity.Contract;
-import com.example.entity.Member;
 import com.example.entity.Scout;
 import com.example.jwt.JwtUtil;
 import com.example.service.ContractService;

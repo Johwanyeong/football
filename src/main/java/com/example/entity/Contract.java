@@ -40,6 +40,6 @@ public class Contract {
     private Date contractdate = null;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "SCOUT")
     private Scout scout;
 }

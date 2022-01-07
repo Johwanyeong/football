@@ -24,5 +24,8 @@ public interface ScoutService {
 
     // 스카우터 목록 수정
     public void updateScout(Scout scout);
+
+    // 스카우트 member, 선수 중복 조회
+    public int checkScout(String id, Long no);
     
 }

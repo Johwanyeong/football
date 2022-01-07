@@ -47,4 +47,10 @@ public class ScoutServiceImpl implements ScoutService{
         sRepository.save(scout);
     }
 
+    // 스카우트 member 중복 조회
+    @Override
+    public int checkScout(String id, Long no) {
+        return sRepository.queryCheckMember(id, no);
+    }
+
 }

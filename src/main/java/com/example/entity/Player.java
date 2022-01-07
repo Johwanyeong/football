@@ -62,10 +62,10 @@ public class Player {
     private String imagetype = null;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "TEAM")
     private Team team;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "AGENT")
     private Agent agent;
 }

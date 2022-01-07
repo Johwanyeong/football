@@ -46,11 +46,11 @@ public class Review {
     private Date reviewdate = null;
     
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "PLAYER")
     private Player player;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "MEMBER")
     private Member member;
 
 }

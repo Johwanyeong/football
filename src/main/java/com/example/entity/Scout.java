@@ -30,11 +30,11 @@ public class Scout {
     private Long scoutno = 0L;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "PLAYER")
     private Player player;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "MEMBER")
     private Member member;
 
 }

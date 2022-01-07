@@ -52,7 +52,8 @@ public class ScoutController {
             if(memberid.equals(member.getUserid())){
                 Long pno = scout.getPlayer().getPlayerno();
                 Player player = pService.getPlayerOne(pno); // player 정보 찾기
-                if(pService.getPlayerOne(scout.getPlayer().getPlayerno()) != null){ //선수 중복 체크
+                int Count = sService.checkScout(memberid, pno); // 중복 체크(중복이 없다면 0이 출력됨)
+                if(Count != 0){ //선수 중복 체크
                     map.put("status", "선수 중복");
                 }
                 else{
