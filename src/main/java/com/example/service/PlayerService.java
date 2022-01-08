@@ -33,4 +33,7 @@ public interface PlayerService {
 
     //몸값 별 선수 조회(오름차순)
     public List<Player> getPlayerALLpriceASC(Pageable pageable);
+
+    //포지션 별 선수 조회
+    public List<Player> getPlayerALLposition(String position, Pageable pageable);
 }

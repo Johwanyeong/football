@@ -7,6 +7,7 @@ import com.example.entity.Player;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -33,6 +34,6 @@ public interface PlayerRepositoy extends JpaRepository<Player, Long>{
 
     //포지션 별 선수 조회
     @Query(value = "SELECT * FROM PLAYER WHERE PLAYERPOSITION = :position", nativeQuery = true)
-    public List<Player> queryListPlayerPosition(Pageable pageable);
+    public List<Player> queryListPlayerPosition(@Param("position") String position, Pageable pageable);
 
 }

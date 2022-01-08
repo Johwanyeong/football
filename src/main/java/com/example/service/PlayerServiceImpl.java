@@ -64,4 +64,10 @@ public class PlayerServiceImpl implements PlayerService{
     public List<Player> getPlayerALLpriceASC(Pageable pageable) {
         return pRepositoy.queryListPlayerASC(pageable);
     }
+
+    //포지션 별 선수 조회
+    @Override
+    public List<Player> getPlayerALLposition(String position, Pageable pageable) {
+        return pRepositoy.queryListPlayerPosition(position, pageable);
+    }
 }

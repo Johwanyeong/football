@@ -150,5 +150,28 @@ public class PlayerController {
         }
         return map;
     }
+
+    //포지션 별 선수 조회
+    //127.0.0.1:8080/REST/playerposition?page=1&position=
+    @RequestMapping(value = "/playerposition", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> playerpositionGET(Player player,
+    @RequestParam(value = "page", defaultValue = "1")int page,
+    @RequestParam(value = "position", defaultValue = "")String position) {
+        //페이지 네이션 처리
+        PageRequest pageable = PageRequest.of(page-1, 15);
+        Map<String, Object> map = new HashMap<>();
+        try{
+            List<Player> PlayerPosition = pService.getPlayerALLposition(position, pageable);
+            map.put("status", "200");
+            map.put("player", PlayerPosition);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
     
 }
