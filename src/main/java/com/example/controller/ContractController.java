@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.example.entity.Contract;
+import com.example.entity.Player;
 import com.example.entity.Scout;
 import com.example.jwt.JwtUtil;
 import com.example.service.ContractService;
 import com.example.service.MemberService;
+import com.example.service.PlayerService;
 import com.example.service.ScoutService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class ContractController {
     @Autowired
     MemberService mService;
 
+    @Autowired
+    PlayerService pService;
+
     //계약하기
     // 127.0.0.1:8080/REST/contractinsert
     @RequestMapping(value = "/contractinsert", method = {RequestMethod.POST},
@@ -47,12 +52,17 @@ public class ContractController {
             Long sno = contract.getScout().getScoutno(); // scout 정보 찾기
             Scout scout = sService.getScoutOne(sno);
             String scoutId = sService.getScoutOne(sno).getMember().getUserid(); // scout에서 member 정보 찾기
+            Player player = sService.getScoutOne(sno).getPlayer(); // scout에서 선수 정보 찾기
             if(memberid.equals(scoutId)){ // 로그인 memberid와 scout에서 찾은 memberid가 일치하는지 확인
                 contract.setScout(scout);
                 cService.insertContract(contract);
                 if(contract.getContractno() != null){
+                    //계약이 성공하면 해당 player의 팀, 몸값 정보를 수정한다.
+                    player.setPlayerprice(player.getPlayerprice());
+                    player.setTeam(player.getTeam());
+                    pService.updatePlayer(player);
                     // System.out.println(sno);
-                    // 계약이 성공하면 해당 scout의 정보를 null로 수정한다.
+                    // 계약이 성공하면 해당 scout의 player 정보를 null로 수정한다.
                     scout.setPlayer(null);
                     sService.updateScout(scout);
                 }

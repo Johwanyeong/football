@@ -105,5 +105,50 @@ public class PlayerController {
         }
         return map;
     }
+
+    //몸값 별 선수 조회(내림차순)
+    //127.0.0.1:8080/REST/playerpricedesc?page=1
+    @RequestMapping(value = "/playerpricedesc", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> playerpricedescGET(Player player,
+    @RequestParam(value = "page", defaultValue = "1")int page ) {
+        //페이지 네이션 처리
+        PageRequest pageable = PageRequest.of(page-1, 15);
+        Map<String, Object> map = new HashMap<>();
+        try{
+            List<Player> PlayerALLpriceDESC = pService.getPlayerALLpriceDESC(pageable);
+            map.put("status", "200");
+            map.put("count", PlayerALLpriceDESC.size());
+            map.put("player", PlayerALLpriceDESC);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+
+    //몸값 별 선수 조회(오름차순)
+    //127.0.0.1:8080/REST/playerpriceasc
+    @RequestMapping(value = "/playerpriceasc", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> playerpriceascGET(Player player,
+    @RequestParam(value = "page", defaultValue = "1")int page  ) {
+        //페이지 네이션 처리
+        PageRequest pageable = PageRequest.of(page-1, 15);
+        Map<String, Object> map = new HashMap<>();
+        try{
+            List<Player> PlayerALLpriceASC = pService.getPlayerALLpriceASC(pageable);
+            map.put("status", "200");
+            map.put("player", PlayerALLpriceASC);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
     
 }

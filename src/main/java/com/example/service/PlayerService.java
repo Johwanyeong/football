@@ -27,4 +27,10 @@ public interface PlayerService {
 
     //에이전트 번호 별 선수 조회
     public List<Player> getPlayerByAgentno(Long no, Pageable pageable);
+
+    //몸값 별 선수 조회(내림차순)
+    public List<Player> getPlayerALLpriceDESC(Pageable pageable);
+
+    //몸값 별 선수 조회(오름차순)
+    public List<Player> getPlayerALLpriceASC(Pageable pageable);
 }

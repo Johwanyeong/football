@@ -52,4 +52,16 @@ public class PlayerServiceImpl implements PlayerService{
     public List<Player> getPlayerByAgentno(Long no, Pageable pageable) {
         return pRepositoy.findByAgent_Agentno(no, pageable);
     }
+
+    //몸값 별 선수 조회(내림차순)
+    @Override
+    public List<Player> getPlayerALLpriceDESC(Pageable pageable) {
+        return pRepositoy.queryListPlayerDESC(pageable);
+    }
+
+    //몸값 별 선수 조회(오름차순)
+    @Override
+    public List<Player> getPlayerALLpriceASC(Pageable pageable) {
+        return pRepositoy.queryListPlayerASC(pageable);
+    }
 }
