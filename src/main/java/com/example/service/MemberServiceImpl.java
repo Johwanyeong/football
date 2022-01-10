@@ -37,5 +37,11 @@ public class MemberServiceImpl implements MemberService{
     public void updateUser(Member member) {
         mRepository.save(member);
     }
+
+    // userid 중복 확인
+    @Override
+    public int checkUserid(String id) {
+        return mRepository.queryCheckUserid(id);
+    }
     
 }

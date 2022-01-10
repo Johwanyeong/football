@@ -30,6 +30,32 @@ public class MemberController {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    //중복 확인
+    //127.0.0.1:8080/REST/member/check
+    @RequestMapping(value = "/member/check", method = {RequestMethod.POST},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> checkPOST(@RequestBody Member member){
+        Map<String, Object> map = new HashMap<String, Object>();
+        try{
+            String userid = member.getUserid();
+            int Count = mService.checkUserid(userid);
+            if(Count != 0){ //user 중복 체크
+                map.put("status", "id 중복");
+                map.put("check", 1);
+            }
+            else{
+                map.put("status", "사용 가능");
+                map.put("check", 0);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+
     //회원가입
     //127.0.0.1:8080/REST/member/join
     @RequestMapping(value = "/member/join", method = {RequestMethod.POST},
@@ -39,9 +65,18 @@ public class MemberController {
         Map<String, Object> map = new HashMap<String, Object>();
         try{
             BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
-            member.setUserpw(bcpe.encode(member.getUserpw()));
-            mService.insertUser(member);
-            map.put("status", 200);
+            String userid = member.getUserid(); 
+            int Count = mService.checkUserid(userid);   //중복 체크(중복이 없다면 0 출력)
+            if(Count != 0){
+                map.put("status", "id 중복");
+                map.put("check", 1);
+            }
+            else{
+                member.setUserpw(bcpe.encode(member.getUserpw()));
+                member.setUserrole("USER"); //관리자는 1명이고 이후엔 전부 USER이므로 ROLE에 USER로 SET 한다.
+                mService.insertUser(member);
+                map.put("status", 200);
+            } 
         }
         catch(Exception e){
             e.printStackTrace();
@@ -61,7 +96,7 @@ public class MemberController {
             authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                     member.getUserid(), member.getUserpw()));
-            map.put("result", 1L);
+            map.put("result", 200);
             map.put("token", jwtUtil.generateToken(member.getUserid()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -84,7 +119,7 @@ public class MemberController {
             member2.setUserid(member.getUserid());
             member2.setUsername(member.getUsername());
             mService.updateUser(member2);
-            map.put("result", 1L);
+            map.put("result", 200);
         } catch (Exception e) {
             e.printStackTrace();
             map.put("result", e.hashCode());

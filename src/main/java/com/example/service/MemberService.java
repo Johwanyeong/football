@@ -15,4 +15,7 @@ public interface MemberService {
 
     //회원 정보 수정
     public void updateUser(Member member);
+
+    // userid 중복 확인
+    public int checkUserid(String id);
 }
