@@ -97,7 +97,34 @@ public class MemberController {
                 .authenticate(new UsernamePasswordAuthenticationToken(
                     member.getUserid(), member.getUserpw()));
             map.put("result", 200);
+            map.put("role", member.getUsername());
             map.put("token", jwtUtil.generateToken(member.getUserid()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("result", e.hashCode());
+        }
+        return map;
+    }
+
+    //토큰을 통한 권한 확인
+    //127.0.0.1:8080/REST/member/role
+    @RequestMapping(value = "/member/role", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> roleGET(
+        @RequestHeader("token") String token) {
+        Map<String,Object> map = new HashMap<String, Object>();
+        try {
+            String userid = jwtUtil.extractUsername(token);
+            Member member = mService.selectUserOne(userid);
+            if(member != null){
+                String role = member.getUserrole();
+                map.put("role", role);
+                map.put("result", 200);
+            }
+            else{
+                map.put("result", 300);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             map.put("result", e.hashCode());
