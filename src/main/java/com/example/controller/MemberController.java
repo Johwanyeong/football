@@ -98,8 +98,8 @@ public class MemberController {
                     member.getUserid(), member.getUserpw()));
             String role = mService.selectUserOne(member.getUserid()).getUserrole();
             map.put("result", 200);
-            map.put("role", role);
-            map.put("token", jwtUtil.generateToken(member.getUserid()));
+            map.put("role", role); //role 정보 전달
+            map.put("token", jwtUtil.generateToken(member.getUserid())); //토큰 정보 전달
         } catch (Exception e) {
             e.printStackTrace();
             map.put("result", e.hashCode());
