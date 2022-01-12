@@ -96,8 +96,9 @@ public class MemberController {
             authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                     member.getUserid(), member.getUserpw()));
+            String role = mService.selectUserOne(member.getUserid()).getUserrole();
             map.put("result", 200);
-            map.put("role", member.getUsername());
+            map.put("role", role);
             map.put("token", jwtUtil.generateToken(member.getUserid()));
         } catch (Exception e) {
             e.printStackTrace();
