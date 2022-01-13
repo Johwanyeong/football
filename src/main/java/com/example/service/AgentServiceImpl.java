@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import com.example.entity.Agent;
 import com.example.repository.AgentRepository;
 
@@ -16,6 +18,12 @@ public class AgentServiceImpl implements AgentService{
     @Override
     public Agent insertAgent(Agent agent) {
         return aRepository.save(agent);
+    }
+
+    //에이전트 전체 조회
+    @Override
+    public List<Agent> getAgentAll() {
+        return aRepository.findAllByOrderByAgentnoDesc();
     }
     
 }
