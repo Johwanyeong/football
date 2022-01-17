@@ -47,8 +47,13 @@ public class AdminController {
         Map<String, Object> map = new HashMap<String, Object>();
         try{
             for(int i =0; i < team.length; i++){
-                tService.insertTeam(team[i]);
-                map.put("status", 200);
+                if(team[i].getTeamname() != ""){ //팀 명 입력 여부 확인
+                    tService.insertTeam(team[i]);
+                    map.put("status", 200);
+                }
+                else{
+                    map.put("status", 300);
+                }
             }
         }
         catch(Exception e){
@@ -68,8 +73,13 @@ public class AdminController {
         Map<String, Object> map = new HashMap<String, Object>();
         try{
             for(int i =0; i < agent.length; i++){
-                aService.insertAgent(agent[i]);
-                map.put("status", 200);
+                if(agent[i].getAgentname() != ""){ //에이전트 명 입력 여부 확인
+                    aService.insertAgent(agent[i]);
+                    map.put("status", 200);
+                }
+                else{
+                    map.put("status", 300);
+                }
             }
         }
         catch(Exception e){

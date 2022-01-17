@@ -14,4 +14,5 @@ public interface TeamService {
     
     //팀 전체 조회
     public List<Team> getTeamAll();
+
 }
