@@ -16,11 +16,14 @@ public interface PlayerService {
     //선수 정보 가져오기(선수 등록 번호로 조회하여 가져옴)
     public Player getPlayerOne(Long no);
 
+    //선수 전체 수 조회
+    public Long getTotalPage();
+
     //선수 정보 수정
     public void updatePlayer(Player player);
 
     //선수 전체 정보 조회
-    public List<Player> getPlayerAll();
+    public List<Player> getPlayerAll(Pageable pageable);
 
     //팀 번호 별 선수 조회
     public List<Player> getPlayerByTeamno(Long no, Pageable pageable);

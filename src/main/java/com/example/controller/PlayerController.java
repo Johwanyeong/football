@@ -42,15 +42,21 @@ public class PlayerController {
     }
 
     // 선수 전체 조회
-    //127.0.0.1:8080/REST/playerall
+    //127.0.0.1:8080/REST/playerall?page=1
     @RequestMapping(value = "/playerall", method = {RequestMethod.GET},
     consumes = MediaType.ALL_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, Object> playerallGET(Player player ) {
+    public Map<String, Object> playerallGET(Player player,
+    @RequestParam(value = "page", defaultValue = "1")int page ) {
+        //페이지 네이션 처리
+        PageRequest pageable = PageRequest.of(page-1, 15);
         Map<String, Object> map = new HashMap<>();
         try{
-            List<Player> playerAll = pService.getPlayerAll();
+            List<Player> playerAll = pService.getPlayerAll(pageable);
+            Long totalpage = pService.getTotalPage(); //등록된 전체 선수 수 조회
             map.put("status", "200");
+            map.put("count", playerAll.size()); //1 페이지에 표시된 선수 숫자
+            map.put("totalpage", (totalpage-1)/15+1 ); //전체 페이지
             map.put("player",playerAll );
         }
         catch(Exception e){

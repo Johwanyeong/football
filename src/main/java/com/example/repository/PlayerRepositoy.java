@@ -14,7 +14,10 @@ import org.springframework.stereotype.Repository;
 public interface PlayerRepositoy extends JpaRepository<Player, Long>{
  
     //선수 전체 조회
-    List<Player> findAllByOrderByPlayernoDesc();
+    List<Player> findAllByOrderByPlayernoDesc(Pageable pageable);
+
+    //선수 전체 수 조회
+    Long countAllByOrderByPlayernoDesc();
 
     //팀 번호 별 선수 조회
     // List<Player> findByTeam_TeamnoOrderByPlayernoDesc(Long teamno, Pageable pageable);

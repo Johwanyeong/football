@@ -37,8 +37,14 @@ public class PlayerServiceImpl implements PlayerService{
 
     //선수 전체 정보 조회
     @Override
-    public List<Player> getPlayerAll() {
-        return pRepositoy.findAllByOrderByPlayernoDesc();
+    public List<Player> getPlayerAll(Pageable pageable) {
+        return pRepositoy.findAllByOrderByPlayernoDesc(pageable);
+    }
+
+    //선수 전체 수 조회
+    @Override
+    public Long getTotalPage() {
+        return pRepositoy.countAllByOrderByPlayernoDesc();
     }
 
     //팀 번호 별 선수 조회
@@ -70,4 +76,5 @@ public class PlayerServiceImpl implements PlayerService{
     public List<Player> getPlayerALLposition(String position, Pageable pageable) {
         return pRepositoy.queryListPlayerPosition(position, pageable);
     }
+
 }
