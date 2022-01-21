@@ -65,6 +65,26 @@ public class PlayerController {
         }
         return map;
     }
+
+    //전체 선수 숫자 조회
+    //127.0.0.1:8080/REST/playercount
+    @RequestMapping(value = "/playercount", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> playercountGET(Player player) {
+        Map<String, Object> map = new HashMap<>();
+        try{
+            Long totalpage = pService.getTotalPage(); //등록된 전체 선수 수 조회
+            map.put("status", "200");
+            map.put("count", totalpage);
+            map.put("totalpage", (totalpage-1)/15+1 ); //전체 페이지
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
     
     //팀 번호 별 선수 조회
     // 127.0.0.1:8080/REST/bnoplayer?page=1&bno=
