@@ -9,7 +9,10 @@ import com.example.service.PlayerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,12 +36,45 @@ public class PlayerController {
             Player player2 = pService.getPlayerOne(no);
             map.put("status", "200");
             map.put("player",player2 );
+            map.put("playerimg","/REST/playeroneimg?no=" + no );    //선수 이미지 url
+
         }
         catch(Exception e){
             e.printStackTrace();
             map.put("status", e.hashCode());
         }
         return map;
+    }
+
+    // 선수 1명 사진 조회
+    //127.0.0.1:8080/REST/playeroneimg?no=
+    @RequestMapping(value = "/playeroneimg", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> playeroneimgGET(
+    @RequestParam("no") long no) {
+        try{
+            Player player = pService.getPlayerOne(no);
+            if(player.getImage() != null) {
+                HttpHeaders headers = new HttpHeaders();
+                if(player.getImagetype().equals("image/jpeg")){
+                    headers.setContentType(MediaType.IMAGE_JPEG);
+                }
+                else if(player.getImagetype().equals("image/png")){
+                    headers.setContentType(MediaType.IMAGE_PNG);
+                }
+                else if(player.getImagetype().equals("image/gif")){
+                    headers.setContentType(MediaType.IMAGE_GIF);
+                }
+                ResponseEntity<byte[]> response = 
+                    new ResponseEntity<>(player.getImage(), headers, HttpStatus.OK);
+                return response;
+            }
+            return null;
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // 선수 전체 조회
@@ -110,7 +146,7 @@ public class PlayerController {
     }
 
     //에이전트 번호 별 선수 조회
-    // 127.0.0.1:8080/REST/bnoplayer?page=1&bno=
+    // 127.0.0.1:8080/REST/bnoplayer?page=1&ano=
     @RequestMapping(value = "/anoplayer", method = {RequestMethod.GET},
     consumes = MediaType.ALL_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
