@@ -51,5 +51,11 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public List<Review> getReviewByPlayerno(Long no, Pageable pageable) {
         return rRepository.findByPlayer_Playerno(no, pageable);
+    }
+
+    //선수 번호 별 리뷰 숫자 조회
+    @Override
+    public Long getReviewByPlayernoCount(Long no) {
+        return rRepository.countAllByPlayer_Playerno(no);
     }    
 }

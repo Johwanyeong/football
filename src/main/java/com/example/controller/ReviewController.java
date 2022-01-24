@@ -167,26 +167,47 @@ public class ReviewController {
     }
 
     // 선수 번호 별 리뷰 조회
-     //127.0.0.1:8080/REST/pnoreview?page=1&pno=
-     @RequestMapping(value = "/pnoreview", method = {RequestMethod.GET},
-     consumes = MediaType.ALL_VALUE,
-     produces = MediaType.APPLICATION_JSON_VALUE)
-     public Map<String, Object> pnoreviewGET(Review review,
-     @RequestParam(value = "page", defaultValue = "1")int page,
-     @RequestParam(value = "pno")long pno) {
-         //페이지 네이션 처리
-         PageRequest pageable = PageRequest.of(page-1, 16);
-         Map<String, Object> map = new HashMap<>();
-         try{
-             List<Review> Pnoreview = rService.getReviewByPlayerno(pno, pageable);
-             map.put("status", "200");
-             map.put("review",Pnoreview );
-         }
-         catch(Exception e){
-             e.printStackTrace();
-             map.put("status", e.hashCode());
-         }
-         return map;
-     }
+    //127.0.0.1:8080/REST/pnoreview?page=1&pno=
+    @RequestMapping(value = "/pnoreview", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> pnoreviewGET(Review review,
+    @RequestParam(value = "page", defaultValue = "1")int page,
+    @RequestParam(value = "pno")long pno) {
+        //페이지 네이션 처리
+        PageRequest pageable = PageRequest.of(page-1, 16);
+        Map<String, Object> map = new HashMap<>();
+        try{
+            List<Review> Pnoreview = rService.getReviewByPlayerno(pno, pageable);
+            map.put("status", "200");
+            map.put("review",Pnoreview );
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+
+     // 선수 번호 별 리뷰 숫자 조회
+     //127.0.0.1:8080/REST/pnoreviewcount?pno=
+    @RequestMapping(value = "/pnoreviewcount", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> pnoreviewcountGET(Review review,
+    @RequestParam(value = "pno")long pno) {
+        Map<String, Object> map = new HashMap<>();
+        try{
+            Long reviewcount = rService.getReviewByPlayernoCount(pno); //선수 번호 별 리뷰 수 조회
+            map.put("status", "200");
+            map.put("count", reviewcount );
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+
 
 }

@@ -27,4 +27,7 @@ public interface ReviewService {
 
     // 선수 번호 별 리뷰 조회
     public List<Review> getReviewByPlayerno(Long no, Pageable pageable);
+
+    //선수 번호 별 리뷰 숫자 조회
+    public Long getReviewByPlayernoCount(Long no);
 }

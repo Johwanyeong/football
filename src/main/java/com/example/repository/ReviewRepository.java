@@ -16,4 +16,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 
     //선수 번호 별 리뷰 조회
     List<Review> findByPlayer_Playerno(Long playerno, Pageable pageable);
+
+    //선수 번호 별 리뷰 숫자 조회
+    Long countAllByPlayer_Playerno(Long playerno);
 }
