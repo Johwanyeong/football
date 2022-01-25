@@ -29,7 +29,7 @@ public class TeamController {
         try{
             List<Team> teamAll = tService.getTeamAll();
             map.put("status", "200");
-            map.put("teams", teamAll);
+            map.put("team", teamAll);
         }
         catch(Exception e){
             e.printStackTrace();
