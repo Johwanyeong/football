@@ -37,7 +37,8 @@ public class PlayerController {
             map.put("status", "200");
             map.put("player",player2 );
             map.put("playerimg","/REST/playeroneimg?no=" + no );    //선수 이미지 url
-
+            map.put("teamname", player2.getTeam().getTeamname());
+            map.put("agentname", player2.getAgent().getAgentname());
         }
         catch(Exception e){
             e.printStackTrace();
@@ -235,5 +236,4 @@ public class PlayerController {
         }
         return map;
     }
-    
 }
