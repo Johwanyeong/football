@@ -19,4 +19,7 @@ public interface ScoutRepository extends JpaRepository<Scout, Long>{
     // member 별 스카우트 목록 조회
     List<Scout> findByMember_Userid(String userid, Pageable pageable);
 
+    // member 별 스카우트 목록 숫자 조회
+    Long countAllByMember_Userid(String userid);
+
 }

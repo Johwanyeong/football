@@ -27,5 +27,8 @@ public interface ScoutService {
 
     // 스카우트 member, 선수 중복 조회
     public int checkScout(String id, Long no);
+
+    // member 별 스카우트 목록 숫자 조회
+    public Long getScoutCountByUserid(String id);
     
 }

@@ -53,4 +53,10 @@ public class ScoutServiceImpl implements ScoutService{
         return sRepository.queryCheckMember(id, no);
     }
 
+    // member 별 스카우트 목록 숫자 조회
+    @Override
+    public Long getScoutCountByUserid(String id) {
+        return sRepository.countAllByMember_Userid(id);
+    }
+
 }

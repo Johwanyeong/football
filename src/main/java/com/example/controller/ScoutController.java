@@ -130,4 +130,27 @@ public class ScoutController {
         return map;
     }
 
+    // member 별 스카우트 숫자 조회
+    //127.0.0.1:8080/REST/scoutcount
+    @RequestMapping(value = "/scoutcount", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> scoutcountGET(Scout scout,
+    @RequestHeader("token") String token) {
+        Map<String, Object> map = new HashMap<>();
+        try{
+            String memberid = jwtUtil.extractUsername(token); // 토큰을 통해 회원 정보 찾기
+            Member member = mService.selectUserOne(memberid); // member 정보 찾기
+            if(memberid.equals(member.getUserid())){
+                Long scoutcount = sService.getScoutCountByUserid(memberid);
+                map.put("status", 200);
+                map.put("count",scoutcount);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
 }
