@@ -22,6 +22,9 @@ public interface ScoutService {
     // 스카우터 목록 삭제
     public void deleteScout(Long no);
 
+    // 스카우터 목록 삭제2
+    public void deleteScout2(Scout scout);
+
     // 스카우터 목록 수정
     public void updateScout(Scout scout);
 

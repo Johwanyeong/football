@@ -103,12 +103,11 @@ public class ScoutController {
 
     // 스카우터 목록 삭제
     // 127.0.0.1:8080/REST/scoutdelete?sno=
-    // 여기서 넘어오는 no는 리뷰 코드
+    // 여기서 넘어오는 no는 스카우트 번호
     @RequestMapping(value = "/scoutdelete", method = {RequestMethod.DELETE},
     consumes = MediaType.ALL_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Object> scoutDELETE(
-        @RequestBody Scout scout,
         @RequestParam(name = "sno", defaultValue = "0")long scoutNo,
         @RequestHeader("token") String token){
         Map<String, Object> map = new HashMap<String, Object>();
@@ -118,10 +117,39 @@ public class ScoutController {
             if(memberId.equals(scoutId)){
                 sService.deleteScout(scoutNo);
                 map.put("status", 200);
+                map.put("sno", scoutNo);
             }
             else{
                 map.put("status", 300);
             }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+
+    // 스카우터 목록 삭제2
+    // 127.0.0.1:8080/REST/scoutdelete2
+    // 여기서 넘어오는 no는 스카우트 번호
+    @RequestMapping(value = "/scoutdelete2", method = {RequestMethod.DELETE},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> scout2DELETE(
+        @RequestBody Scout scout){
+        Map<String, Object> map = new HashMap<String, Object>();
+        try{
+            // String memberId = jwtUtil.extractUsername(token); // 토큰을 통해 회원 정보 찾기
+            // String scoutId = sService.getScoutOne(scoutNo).getMember().getUserid(); // 스카우트 정보에서 member id 찾기
+            // if(memberId.equals(scoutId)){
+                sService.deleteScout2(scout);
+                map.put("status", 200);
+                // map.put("sno", scoutNo);
+            // }
+            // else{
+            //     map.put("status", 300);
+            // }
         }
         catch(Exception e){
             e.printStackTrace();

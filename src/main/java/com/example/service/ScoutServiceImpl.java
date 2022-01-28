@@ -59,4 +59,10 @@ public class ScoutServiceImpl implements ScoutService{
         return sRepository.countAllByMember_Userid(id);
     }
 
+    // 스카우터 목록 삭제2
+    @Override
+    public void deleteScout2(Scout scout) {
+        sRepository.delete(scout);
+    }
+
 }
