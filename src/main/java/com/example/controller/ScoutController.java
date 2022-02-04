@@ -101,6 +101,31 @@ public class ScoutController {
         return map;
     }
 
+    //스카우터 목록 1개 조회
+    // 127.0.0.1:8080/REST/scoutone?sno=
+    @RequestMapping(value = "/scoutone", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> scoutoneGET(Scout scout,
+    @RequestParam(name = "sno", defaultValue = "0")long scoutNo,
+    @RequestHeader("token") String token) {
+        Map<String, Object> map = new HashMap<>();
+        try{
+            String memberid = jwtUtil.extractUsername(token); // 토큰을 통해 회원 정보 찾기
+            Member member = mService.selectUserOne(memberid); // member 정보 찾기
+            if(memberid.equals(member.getUserid())){
+                Scout scout2 = sService.getScoutOne(scoutNo);
+                map.put("status", 200);
+                map.put("scout",scout2);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+
     // 스카우터 목록 삭제
     // 127.0.0.1:8080/REST/scoutdelete?sno=
     // 여기서 넘어오는 no는 스카우트 번호
