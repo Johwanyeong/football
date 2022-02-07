@@ -52,7 +52,7 @@ public class ContractController {
             Long sno = contract.getScout().getScoutno(); // scout 정보 찾기
             Scout scout = sService.getScoutOne(sno);
             String scoutId = sService.getScoutOne(sno).getMember().getUserid(); // scout에서 member 정보 찾기
-            Player player = sService.getScoutOne(sno).getPlayer(); // scout에서 선수 정보 찾기
+            
             if(memberid.equals(scoutId)){ // 로그인 memberid와 scout에서 찾은 memberid가 일치하는지 확인
                 contract.setScout(scout);
                 cService.insertContract(contract);
@@ -65,9 +65,10 @@ public class ContractController {
                 map.put("status", 2);
             }
             if(contract.getScout().getScoutno() != null){
+                Player player = sService.getScoutOne(sno).getPlayer(); // scout에서 선수 정보 찾기
                 //계약이 성공하면 해당 player의 팀, 몸값 정보를 수정한다.
                 player.setPlayerprice(player.getPlayerprice());
-                player.setTeam(player.getTeam());
+                // player.setTeam(player.getTeam());
                 pService.updatePlayer(player);
                 System.out.println("----------------------------");
                 System.out.println(contract.getScout().getPlayer().getPlayername());
