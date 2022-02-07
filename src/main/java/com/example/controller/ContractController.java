@@ -56,16 +56,27 @@ public class ContractController {
             if(memberid.equals(scoutId)){ // 로그인 memberid와 scout에서 찾은 memberid가 일치하는지 확인
                 contract.setScout(scout);
                 cService.insertContract(contract);
-                if(contract.getContractno() != null){
-                    //계약이 성공하면 해당 player의 팀, 몸값 정보를 수정한다.
-                    player.setPlayerprice(player.getPlayerprice());
-                    player.setTeam(player.getTeam());
-                    pService.updatePlayer(player);
-                    // System.out.println(sno);
-                    // 계약이 성공하면 해당 scout의 player 정보를 null로 수정한다.
-                    scout.setPlayer(null);
-                    sService.updateScout(scout);
-                }
+                System.out.println("----------------------------");
+                System.out.println(contract.getScout().getScoutno());
+                System.out.println("----------------------------");
+                map.put("status", 1);
+            }
+            else{
+                map.put("status", 2);
+            }
+            if(contract.getScout().getScoutno() != null){
+                //계약이 성공하면 해당 player의 팀, 몸값 정보를 수정한다.
+                player.setPlayerprice(player.getPlayerprice());
+                player.setTeam(player.getTeam());
+                pService.updatePlayer(player);
+                System.out.println("----------------------------");
+                System.out.println(contract.getScout().getPlayer().getPlayername());
+                
+                System.out.println(contract.getScout().getScoutno());
+                System.out.println("----------------------------");
+                // 계약이 성공하면 해당 scout의 player 정보를 null로 수정한다.
+                scout.setMember(null);
+                sService.updateScout(scout);
                 map.put("status", 200);
             }
             else{
