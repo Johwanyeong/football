@@ -14,6 +14,7 @@ import com.example.service.ScoutService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,7 @@ public class ContractController {
     produces = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, Object> contractinsertPOST(
         @RequestBody Contract contract,
+        @ModelAttribute Player player,
         @RequestHeader("token") String token){
         Map<String, Object> map = new HashMap<String, Object>();
         try{
@@ -65,12 +67,12 @@ public class ContractController {
                 map.put("status", 2);
             }
             if(contract.getScout().getScoutno() != null){
-                Player player = sService.getScoutOne(sno).getPlayer(); // scout에서 선수 정보 찾기
+                Player player2 = sService.getScoutOne(sno).getPlayer(); // scout에서 선수 정보 찾기
                 //계약이 성공하면 해당 player의 팀, 몸값 정보를 수정한다.
-                player.setPlayerprice(player.getPlayerprice());
-                // player.setTeam(player.getTeam());
-                pService.updatePlayer(player);
+                player2.setPlayerprice(player.getPlayerprice());    //몸값
+                pService.updatePlayer(player2);
                 System.out.println("----------------------------");
+                System.out.println(player.getPlayerprice());
                 System.out.println(contract.getScout().getPlayer().getPlayername());
                 
                 System.out.println(contract.getScout().getScoutno());
