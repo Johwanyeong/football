@@ -57,7 +57,7 @@ public class ContractController {
             String scoutId = scout.getMember().getUserid(); // scout에서 member 정보 찾기
             if(memberid.equals(scoutId)){ // 로그인 memberid와 scout에서 찾은 memberid가 일치하는지 확인
                 Player player2 = scout.getPlayer(); // scout에서 선수 정보 찾기
-                player2.setPlayerprice(player.getPlayerprice());    //몸값
+                player2.setPlayerprice(player.getPlayerprice()); //몸값
                 player2.setTeam(player.getTeam()); //소속팀
                 pService.updatePlayer(player2);
                 System.out.println("----------------------------");
