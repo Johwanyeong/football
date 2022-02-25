@@ -12,4 +12,5 @@ public interface TeamRepository extends JpaRepository<Team, Long>{
     
     //팀 전체 조회
     List<Team> findAllByOrderByTeamnoDesc();
+
 }

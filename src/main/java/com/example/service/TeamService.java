@@ -15,4 +15,7 @@ public interface TeamService {
     //팀 전체 조회
     public List<Team> getTeamAll();
 
+    //팀 1개 조회
+    public Team getTeamOne(Long no);
+
 }

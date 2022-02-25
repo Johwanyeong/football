@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.entity.Team;
 import com.example.repository.TeamRepository;
@@ -24,6 +25,13 @@ public class TeamServiceImpl implements TeamService{
     @Override
     public List<Team> getTeamAll() {
         return tRepository.findAllByOrderByTeamnoDesc();
+    }
+
+    //팀 1개 조회
+    @Override
+    public Team getTeamOne(Long no) {
+        Optional<Team> team = tRepository.findById(no);
+        return team.orElse(null);
     }
     
     
