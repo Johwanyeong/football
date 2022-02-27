@@ -44,8 +44,7 @@ public class TeamController {
     @RequestMapping(value = "/teamone", method = {RequestMethod.GET},
     consumes = MediaType.ALL_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, Object> teamoneGET(Team team
-    ) {
+    public Map<String, Object> teamoneGET(Team team) {
         Map<String, Object> map = new HashMap<>();
         try{
             long no = team.getTeamno();
