@@ -53,6 +53,12 @@ public class PlayerServiceImpl implements PlayerService{
         return pRepositoy.findByTeam_Teamno(no, pageable);
     }
 
+    // 팀 번호 별 선수 수 조회
+    @Override
+    public Long getTeamPlayerPage(Long no) {
+        return pRepositoy.countByTeam_Teamno(no);
+    }
+
     //에이전트 번호 별 선수 조회
     @Override
     public List<Player> getPlayerByAgentno(Long no, Pageable pageable) {
@@ -76,5 +82,6 @@ public class PlayerServiceImpl implements PlayerService{
     public List<Player> getPlayerALLposition(String position, Pageable pageable) {
         return pRepositoy.queryListPlayerPosition(position, pageable);
     }
+
 
 }

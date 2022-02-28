@@ -132,12 +132,33 @@ public class PlayerController {
     @RequestParam(value = "page", defaultValue = "1")int page,
     @RequestParam(name = "bno")long bno) {
         //페이지 네이션 처리
-        PageRequest pageable = PageRequest.of(page-1, 16);
+        PageRequest pageable = PageRequest.of(page-1, 15);
         Map<String, Object> map = new HashMap<>();
         try{
             List<Player> Bnoplayer = pService.getPlayerByTeamno(bno, pageable);
             map.put("status", "200");
             map.put("player",Bnoplayer );
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            map.put("status", e.hashCode());
+        }
+        return map;
+    }
+
+    //전체 선수 숫자 조회
+    //127.0.0.1:8080/REST/teamplayercount?bno=
+    @RequestMapping(value = "/teamplayercount", method = {RequestMethod.GET},
+    consumes = MediaType.ALL_VALUE,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, Object> BnoplayercountGET(Player player,
+    @RequestParam(name = "bno")long bno) {
+        Map<String, Object> map = new HashMap<>();
+        try{
+            Long totalpage = pService.getTeamPlayerPage(bno); //등록된 전체 선수 수 조회
+            map.put("status", "200");
+            map.put("count", totalpage);
+            map.put("totalpage", (totalpage-1)/15+1 ); //전체 페이지
         }
         catch(Exception e){
             e.printStackTrace();

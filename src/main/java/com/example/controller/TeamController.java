@@ -40,15 +40,15 @@ public class TeamController {
     }
 
     //팀 1개 조회
-    //127.0.0.1:8080/REST/teamone
+    //127.0.0.1:8080/REST/teamone?bno=
     @RequestMapping(value = "/teamone", method = {RequestMethod.GET},
     consumes = MediaType.ALL_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, Object> teamoneGET(Team team) {
+    public Map<String, Object> teamoneGET(Team team,
+    @RequestParam(name = "bno")long bno) {
         Map<String, Object> map = new HashMap<>();
         try{
-            long no = team.getTeamno();
-            Team team2 = tService.getTeamOne(no);
+            Team team2 = tService.getTeamOne(bno);
             map.put("status", "200");
             map.put("team", team2);
         }

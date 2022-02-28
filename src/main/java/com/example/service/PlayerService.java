@@ -28,6 +28,9 @@ public interface PlayerService {
     //팀 번호 별 선수 조회
     public List<Player> getPlayerByTeamno(Long no, Pageable pageable);
 
+    // 팀 번호 별 선수 수 조회
+    public Long getTeamPlayerPage(Long no);
+
     //에이전트 번호 별 선수 조회
     public List<Player> getPlayerByAgentno(Long no, Pageable pageable);
 

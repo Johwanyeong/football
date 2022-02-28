@@ -23,6 +23,9 @@ public interface PlayerRepositoy extends JpaRepository<Player, Long>{
     // List<Player> findByTeam_TeamnoOrderByPlayernoDesc(Long teamno, Pageable pageable);
     List<Player> findByTeam_Teamno(Long teamno, Pageable pageable);
 
+    // 팀 번호 별 선수 수 조회
+    Long countByTeam_Teamno(Long teamno);
+
     //에이전트 번호 별 선수 조회
     // List<Player> findByAgent_AgentnoOrderByPlayernoDesc(Long agentno, Pageable pageable);
     List<Player> findByAgent_Agentno(Long agentno, Pageable pageable);
